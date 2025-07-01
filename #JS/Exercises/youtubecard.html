@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Youtube Playlist Card</title>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      margin: 20px;
+    }
+
+    .container {
+      display: flex;
+      gap: 15px;
+      background-color: transparent;
+      padding: 10px;
+      border-radius: 10px;
+      flex-direction: column;
+    }
+
+    h3{
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .thumbnail {
+      position: relative;
+      width: 246px;
+      height: 138px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .duration {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      font-size: 13px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    .video-info {
+      display: flex;
+      flex-direction: column;
+      justify-content:flex-start;
+      max-width: 100%;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #fff;
+    }
+
+    .channelName,
+    .views,
+    .months {
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="cardContainer">
+   
+  </div>
+  <script src="youtubecard.js"></script>
+</body>
+
+</html>
