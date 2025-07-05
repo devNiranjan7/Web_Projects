@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Set 8</title>
+    <style>
+        .alert-button,
+        .bookmark-href,
+        .bookmark-elem {
+            min-height: 50px;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        button {
+            margin-right: 5px;
+        }
+
+        #bulb-box {
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+        }
+
+        .bulb {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Question 1 -->
+    <div class="alert-button">
+        <button onclick="alert('You clicked button 1')">Button 1</button>
+        <button onclick="alert('You clicked button 2')">Button 2</button>
+        <button onclick="alert('You clicked button 3')">Button 3</button>
+    </div>
+    <hr>
+
+    <!-- Question 2 -->
+    <div class="bookmark-href">
+        <h1>Bookmarks <span style="font-size: 14px; font-weight: normal;">by href</span></h1>
+        <a href="https://google.com"><button>Google</button></a>
+        <a href="https://chatgpt.com"><button>ChatGPT</button></a>
+        <a href="https://youtube.com"><button>Youtube</button></a>
+    </div>
+    <hr>
+
+    <!-- Question 3 -->
+    <div class="bookmark-elem">
+        <h1>Bookmarks <span style="font-size: 14px; font-weight: normal;">by event listeners</span></h1>
+        <button id="google">Google</button>
+        <button id="chatgpt">ChatGPT</button>
+        <button id="youtube">Youtube</button>
+    </div>
+    <hr>
+
+    <!-- Question 5 -->
+    <div id="bulb-box" class="bulb"></div>
+
+    <script src="ps8.js"></script>
+</body>
+
+</html>
