@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Set 9</title>
+</head>
+
+<body>
+    <script>
+        // Question 1 - Load Script with Promise
+
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                let script = document.createElement("script");
+
+                script.src = src;
+
+                script.onload = () => resolve("Script loaded");
+                script.onerror = () => reject(new Error("load error"));
+
+                document.head.append(script);
+            });
+        }
+
+        loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js").then((message) => {
+            alert(message);
+            console.log("Lodash version:", _.VERSION);
+        }).catch((err) => {
+            alert("Error loadding script" + err.message);
+        });
+
+        // Question 2 - Load Script with async/await
+
+        async function startLoad() {
+            try {
+                const message = await loadScript("https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js");
+                alert(message);
+                console.log("Lodash version:", _.VERSION);
+            }
+            catch (err) {
+                alert("Error loading script" + err.message);
+            }
+        };
+
+        startLoad();
+
+        // Question 3 - Promise Rejection with Async/Await
+
+        function rejectAfter3Sec() {
+            return new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error("Promise reject after 3 seconds"));
+                }, 3000);
+            })
+        }
+
+        async function handlerejection() {
+            try {
+                const message = await rejectAfter3Sec();
+                console.log("Result:", message);
+            } catch (error) {
+                console.error("Caught error:", error.message);
+                alert("Error handled: " + error.message);
+            }
+        };
+
+        handlerejection();
+
+        // Question 4 - Promise.all vs Sequential Await
+
+        function waitAndReturn(value, delay) {
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(value), delay);
+            });
+        }
+
+        // Sequential await (one by one)
+        async function runSequential() {
+            console.time("Sequential");
+
+            const result1 = await waitAndReturn("First", 1000);
+            const result2 = await waitAndReturn("Second", 2000);
+            const result3 = await waitAndReturn("Third", 3000);
+
+            console.log("Sequential Results:", result1, result2, result3);
+
+            console.timeEnd("Sequential");
+        }
+
+        // Parallel with Promise.all
+        async function runParallel() {
+            console.time("Parallel");
+
+            const p1 = waitAndReturn("First", 1000);
+            const p2 = waitAndReturn("Second", 2000);
+            const p3 = waitAndReturn("Third", 3000);
+
+            const results = await Promise.all([p1, p2, p3]);
+
+            console.log("Parallel Results:", results);
+
+            console.timeEnd("Parallel");
+        }
+
+        runSequential().then(() => runParallel());
+    </script>
+</body>
+
+</html>
