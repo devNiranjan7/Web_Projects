@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacking Simulator</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            color: rgb(138, 221, 4);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .hacking-Container {
+            width: 100%;
+            max-width: 800px;
+            line-height: 2rem;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hacking-Container" id="hackingContainer"></div>
+    <script>
+        console.log("js is started")
+
+        const messages = [
+            "Initializing Hacking",
+            "Reading your files",
+            "Password files detected",
+            "Sending all passwords and personal files to server",
+            "Cleaning up"
+        ];
+
+        const container = document.getElementById('hackingContainer');
+
+        function getRandomDelay() {
+            return Math.floor(Math.random() * 7000) + 1000;
+        }
+
+        setTimeout(() => {
+            document.body.style.transition = "background-color 2s ease";
+
+            document.body.style.backgroundColor = "#003300";
+
+            let index = 0;
+
+            function showNextMsg() {
+                if (index >= messages.length) return;
+
+                const msgText = messages[index];
+                const msgElem = document.createElement('div');
+                container.appendChild(msgElem);
+
+                let dotCount = 0;
+                let dotInterval;
+
+                function startDots() {
+                    dotInterval = setInterval(() => {
+                        dotCount = (dotCount + 1) % 4;
+                        let dots = '.'.repeat(dotCount);
+                        msgElem.textContent = msgText + dots;
+                    }, 500);
+                }
+
+                startDots();
+
+                const nextDelay = getRandomDelay();
+
+                setTimeout(() => {
+                    clearInterval(dotInterval);
+                    msgElem.textContent = msgText + "...";
+                    index++;
+                    showNextMsg()
+                }, nextDelay);
+            }
+            showNextMsg();
+        }, getRandomDelay());
+
+    </script>
+</body>
+
+</html>
