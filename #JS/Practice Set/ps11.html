@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Set 11</title>
+</head>
+
+<body>
+    <script>
+        // Question 1
+        class Complex {
+            constructor(real, imaginary) {
+                this.real = real;
+                this.imaginary = imaginary;
+            }
+
+            // Question 2
+            add(other) {
+                const newReal = this.real + other.real;
+                const newImaginary = this.imaginary + other.imaginary;
+                return new Complex(newReal, newImaginary);
+            }
+
+            // Question 5
+            get realPart() {
+                return this.real;
+            }
+
+            set realPart(value) {
+                this.real = value;
+            }
+            get imaginaryPart() {
+                return this.imaginary;
+            }
+
+            set imaginaryPart(value) {
+                this.imaginary = value;
+            }
+        }
+
+        // Question 3
+        class Human {
+            speak() {
+                console.log("Human Speaking!");
+            }
+        }
+
+        class Student extends Human {
+            speak() {
+                console.log("Student Speaking...");
+            }
+        }
+
+        const person = new Human();
+        const learner = new Student();
+
+        person.speak();
+        learner.speak();
+
+        // Question 4
+        console.log(Student instanceof Human);
+
+        // Usage
+        const c1 = new Complex(2, 3);
+        const c2 = new Complex(4, 5);
+        const result = c1.add(c2);
+
+        console.log(result);
+        console.log(result.realPart);
+        console.log(result.imaginaryPart);
+    </script>
+</body>
+
+</html>
