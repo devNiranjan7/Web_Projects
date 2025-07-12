@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Alarm Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #80f4cf;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            background: rgb(217, 246, 237);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        #current-time {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+
+        .alarm-setter {
+            margin: 20px 0;
+        }
+
+        input[type="time"] {
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 6px 10px;
+            margin-left: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Alarm Clock</h1>
+        <div id="current-time">00:00:00</div>
+
+        <div class="alarm-setter">
+            <label for="alarm-time">Set Alarm:</label>
+            <input type="time" id="alarm-time">
+            <button onclick="setAlarm()">Set</button>
+            <button onclick="clearAlarm()">Clear</button>
+        </div>
+
+        <p id="alarm-status">Alarm not set.</p>
+        <audio id="alarm-audio" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"
+            preload="auto"></audio>
+
+    </div>
+
+    <script>
+        const currentTimeDisplay = document.getElementById("current-time");
+        const alarmAudio = document.getElementById("alarm-audio");
+        const alarmStatus = document.getElementById("alarm-status");
+
+        let alarmTime = null;
+        let alarmTimeout = null;
+
+        function updateTime() {
+            const now = new Date();
+
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+
+            const formatNumber = (num) => (num < 10 ? '0' + num : num);
+
+            const timeString = `${formatNumber(hours)}:${formatNumber(minutes)}:${formatNumber(seconds)} ${ampm}`;
+            currentTimeDisplay.textContent = timeString;
+
+            const alarmInput = alarmTime;
+            if (alarmInput) {
+                const [alarmHourMinute, alarmAMPM] = alarmInput.split(' ');
+                if (timeString.startsWith(alarmHourMinute) && ampm === alarmAMPM) {
+                    alarmAudio.play();
+                    alarmStatus.textContent = "Alarm ringing!";
+                }
+            }
+        }
+
+        function setAlarm() {
+            const timeInput = document.getElementById("alarm-time").value;
+            if (!timeInput) {
+                alert("Please set a valid time.");
+                return;
+            }
+
+            const [hourStr, minuteStr] = timeInput.split(':');
+            let hour = parseInt(hourStr);
+            const minute = parseInt(minuteStr);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            hour = hour % 12;
+            hour = hour ? hour : 12;
+
+            const formatNumber = (num) => (num < 10 ? '0' + num : num);
+            alarmTime = `${formatNumber(hour)}:${formatNumber(minute)} ${ampm}`;
+
+            alarmStatus.textContent = `Alarm set for ${alarmTime}`;
+        }
+
+        function clearAlarm() {
+            alarmTime = null;
+            alarmAudio.pause();
+            alarmAudio.currentTime = 0;
+            alarmStatus.textContent = "Alarm cleared.";
+        }
+
+        setInterval(updateTime, 1000);
+
+    </script>
+</body>
+
+</html>
