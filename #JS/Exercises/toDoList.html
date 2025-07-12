@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #e2bebe;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        button {
+            background-color: #ffe4c4;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+        }
+
+        button:hover {
+            background-color: #44b99e;
+            transform: scale(1.1);
+            transition: transform 0.3s ease-in;
+            color: #f5f5f5;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: teal;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-top: 25px;
+        }
+
+        li {
+            margin: 6px 0;
+            padding: 5px;
+            list-style: none;
+            background-image: linear-gradient(90deg,rgba(2, 0, 36, 1) 0%, rgb(139 60 118), rgb(30 30 108) 100%);
+            border-radius: 25px;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>To-Do Manager</h1>
+    <div>
+        <button onclick=createToDo()>Add a To-Do</button>
+        <button onclick=deleteToDo()>Delete a To-Do</button>
+    </div>
+    <ul id="todoList"></ul>
+    <script>
+        function getToDo() {
+            return JSON.parse(localStorage.getItem('todos')) || [];
+        }
+
+        function showToDo() {
+            let list = document.getElementById("todoList");
+            list.innerHTML = '';
+            let todos = getToDo();
+            todos.forEach((todo, index) => {
+                let li = document.createElement("li");
+                li.textContent = `${index + 1}. ${todo}`
+                list.appendChild(li);
+            });
+        }
+        function createToDo() {
+            let todo = prompt("Enter To-Do to add in the list :");
+            if (todo) {
+                let todos = getToDo();
+                todos.push(todo);
+                localStorage.setItem('todos', JSON.stringify(todos));
+                showToDo();
+            }
+        };
+
+        function deleteToDo() {
+            let number = prompt("Enter the number of To-Do to delete from the lsit :");
+            let todos = getToDo();
+            if (todos.length === 0) {
+                alert("No item to delete!");
+                return;
+            }
+            let index = parseInt(number) - 1;
+
+            if (!isNaN(index) && index >= 0 && index < todos.length) {
+                todos.splice(index, 1);
+                localStorage.setItem('todos', JSON.stringify(todos));
+                showToDo();
+            }
+            else {
+                alert("Invalid Number!");
+            }
+
+        };
+
+        showToDo();
+    </script>
+</body>
+
+</html>
